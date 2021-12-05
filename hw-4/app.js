@@ -10,10 +10,15 @@ const createPowerPlants = (maxLength) => {
   });
 };
 let powerPlants = createPowerPlants(4);
-let powerPlantsProduction = powerPlants.reduce((acc, powerPlant) => {
-  return powerPlant.power * 24 + acc;
-}, 0);
-console.log(`Power plants production: ${powerPlantsProduction} kWh`);
+function getPowerPlantsProduction(isDay) {
+  return powerPlants.reduce((acc, powerPlant) => {
+    let hours = sunlightHour;
+    if (!isDay) {
+      hours = 24 - sunlightHour;
+    }
+    return powerPlant.power * hours + acc;
+  }, 0);
+}
 
 const createSolarPanels = (maxLength) => {
   return Array.from({ length: getRandom(1, maxLength) }, () => {
@@ -21,10 +26,14 @@ const createSolarPanels = (maxLength) => {
   });
 };
 let solarPanels = createSolarPanels(6);
-let solarPanelsProduction = solarPanels.reduce((acc, solarPanel) => {
-  return solarPanel.power * sunlightHour + acc;
-}, 0);
-console.log(`Power solar panels production: ${solarPanelsProduction} kWh`);
+function getSolarPlantsProduction(isDay) {
+  if (!isDay) {
+    return 0;
+  }
+  return solarPanels.reduce((acc, solarPanel) => {
+    return solarPanel.power * sunlightHour + acc;
+  }, 0);
+}
 
 const createHouses = (maxLength) => {
   return Array.from({ length: getRandom(1, maxLength) }, () => {
@@ -37,62 +46,84 @@ const createHouses = (maxLength) => {
 };
 let houses = createHouses(1000);
 
-let consumptionHouses = houses.reduce((acc, house) => {
-  return (
-    (house.powerConsumeDay * sunlightHour +
-      house.powerConsumeNight * (24 - sunlightHour)) *
-      house.quantityFlat +
-    acc
-  );
-}, 0);
+function getHousesConsuption(isDay) {
+  let hours = sunlightHour;
 
-console.log(`Consumption by houses: ${consumptionHouses} kWh`);
+  if (!isDay) {
+    hours = 24 - sunlightHour;
+  }
+  return houses.reduce((acc, house) => {
+    let powerConsuption = house.powerConsumeDay;
+    if (!isDay) {
+      powerConsuption = house.powerConsumeNight;
+    }
+    return hours * powerConsuption * house.quantityFlat + acc;
+  }, 0);
+}
 
 const createElectricalLines = (maxLength) => {
   return Array.from({ length: getRandom(1, maxLength) }, () => {
     return { price: getRandom(10, 30), maxPower: getRandom(1000, 3000) };
   });
 };
-let electricalLines = createElectricalLines(10);
+let electricalLines = createElectricalLines(30);
 
-let difference =
-  powerPlantsProduction + solarPanelsProduction - consumptionHouses;
+function getEnergyDifference(isDay) {
+  let powerPlantsProduction = getPowerPlantsProduction(isDay);
+  let solarPanelsProduction = getSolarPlantsProduction(isDay);
+  let consumptionHouses = getHousesConsuption(isDay);
 
-console.log(`Difference production of consuption: ${difference} kWh`);
-let moneyDifference = 0;
-if (difference > 0) {
-  let sortedLines = electricalLines.sort((a, b) => {
-    return b.price - a.price;
-  });
-
-  for (let sortedLine of sortedLines) {
-    if (sortedLine.maxPower * 24 > difference) {
-      moneyDifference += sortedLine.price * difference;
-      difference = 0;
-      break;
-    } else {
-      moneyDifference += sortedLine.price * sortedLine.maxPower * 24;
-      difference -= sortedLine.maxPower * 24;
-    }
-  }
-} else {
-  let sortedLines = electricalLines.sort((a, b) => {
-    return a.price - b.price;
-  });
-
-  for (let sortedLine of sortedLines) {
-    if (sortedLine.maxPower * 24 > Math.abs(difference)) {
-      moneyDifference -= sortedLine.price * difference;
-      difference = 0;
-      break;
-    } else {
-      moneyDifference -= sortedLine.price * sortedLine.maxPower * 24;
-      difference += sortedLine.maxPower * 24;
-    }
-  }
+  return powerPlantsProduction + solarPanelsProduction - consumptionHouses;
 }
-console.log(`Money spent or gained: ${moneyDifference} USD`);
 
-difference > 0
-  ? console.log(`We haven't sold ${difference}`)
-  : console.log(`We have deficit ${difference}`);
+function getMoneyDifference(isDay) {
+  let moneyDifference = 0;
+  let difference = getEnergyDifference(isDay);
+
+  let hours = sunlightHour;
+  if (!isDay) {
+    hours = 24 - sunlightHour;
+  }
+  if (difference > 0) {
+    let sortedLines = electricalLines.sort((a, b) => {
+      return b.price - a.price;
+    });
+
+    for (let sortedLine of sortedLines) {
+      if (sortedLine.maxPower * hours > difference) {
+        moneyDifference += sortedLine.price * difference;
+        difference = 0;
+        break;
+      } else {
+        moneyDifference += sortedLine.price * sortedLine.maxPower * hours;
+        difference -= sortedLine.maxPower * hours;
+      }
+    }
+  } else {
+    let sortedLines = electricalLines.sort((a, b) => {
+      return a.price - b.price;
+    });
+
+    for (let sortedLine of sortedLines) {
+      if (sortedLine.maxPower * hours > Math.abs(difference)) {
+        moneyDifference -= sortedLine.price * difference;
+        difference = 0;
+        break;
+      } else {
+        moneyDifference -= sortedLine.price * sortedLine.maxPower * hours;
+        difference += sortedLine.maxPower * hours;
+      }
+    }
+  }
+  isDay
+    ? console.log(`Calculation for day:`)
+    : console.log(`Calculation for night:`);
+
+  console.log(`Money spent or gained: ${moneyDifference} USD`);
+
+  difference > 0
+    ? console.log(`We haven't sold ${difference}`)
+    : console.log(`We have deficit ${difference}`);
+}
+getMoneyDifference(true);
+getMoneyDifference(false);
