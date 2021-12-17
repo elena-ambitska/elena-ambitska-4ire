@@ -84,6 +84,15 @@ function calculator() {
     }
 
     if (actions.includes(value)) {
+      if ((finish || startSecondNum || display.value === "") && value === "-") {
+        display.value = "-";
+
+        startSecondNum = false;
+        finish = false;
+
+        return;
+      }
+
       if (sign) {
         secondNum = parseFloat(display.value);
 
