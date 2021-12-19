@@ -71,6 +71,9 @@ function calculator() {
     if (value !== "mrc") {
       memoryWasUsed = false;
     }
+    if (display.value.includes(".") && value === ".") {
+      return;
+    }
 
     if (values.includes(value)) {
       if (finish || display.value === "0" || startSecondNum) {
