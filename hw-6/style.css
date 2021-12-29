@@ -1,0 +1,147 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.container {
+  max-width: 1440px;
+  padding-top: 50px;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 20px;
+
+  margin: 0 auto;
+}
+html {
+  background-image: url(./img/7f3er.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.movie {
+  width: 300px;
+  padding-bottom: 25px;
+
+  background-color: rgb(58, 67, 78);
+  border-radius: 3px;
+  box-shadow: 0 0 20px black;
+
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.movie-info,
+.action {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.movie-image {
+  width: 100%;
+}
+.cover {
+  max-width: 100%;
+
+  object-fit: cover;
+}
+.title {
+  font-size: 24px;
+}
+.genres {
+  font-size: 15px;
+  margin-top: -10px;
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+button {
+  width: 100%;
+  height: 35px;
+  border: none;
+  background: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: transparent;
+  color: orange;
+}
+.wrapper-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.container-modal {
+  background-color: rgb(58, 67, 78);
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+
+  width: 600px;
+  position: fixed;
+  top: 20px;
+  left: calc(50% - 300px);
+  margin: 0 auto;
+}
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+}
+.rating li {
+  list-style-type: none;
+  margin-left: -10px;
+}
+
+.modal-info {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: calc(100% - 100px);
+}
+
+.modal-content {
+  display: flex;
+}
+.rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  column-gap: 20px;
+}
+.modal {
+  display: none;
+}
+.overlay:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(238, 231, 231, 0.514);
+}
+
+.webUrl {
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+
+  display: block;
+  margin-bottom: 25px;
+}
+.webUrl:hover {
+  color: rgba(243, 122, 9, 0.966);
+}
