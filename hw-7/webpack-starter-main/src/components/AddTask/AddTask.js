@@ -20,6 +20,7 @@ export function renderAddTask() {
     rootElement.querySelectorAll("input, select").forEach((el) => {
       data[el.getAttribute("name")] = el.value;
     });
+    data["status"] = "new";
     addTask(data);
     createNotification("Task created successfully");
   });

@@ -9,3 +9,15 @@ body {
   position: fixed;
   top: 0;
 }
+
+header {
+  justify-content: space-between;
+}
+
+.nav-item {
+  border-radius: 10px;
+
+  &:hover {
+    background-color: rgba(66, 156, 240, 0.486);
+  }
+}

@@ -1,5 +1,5 @@
 import TaskItemTemplate from "./TaskItem.html";
-import { updateTask } from "../../scripts/storage";
+import { updateTask, getGroupById } from "../../scripts/storage";
 
 export function renderTaskItem(taskListEl, task) {
   const div = document.createElement("div");
@@ -11,6 +11,13 @@ export function renderTaskItem(taskListEl, task) {
   taskListEl.insertAdjacentElement("beforeend", rootElem);
   const select = rootElem.querySelector(".status");
   select.value = task.status;
+
+  const group = getGroupById(task.group);
+  console.log(group);
+  const groupNameElem = rootElem.querySelector(".group-name");
+  groupNameElem.innerText = group.name;
+  groupNameElem.style.color = group.color;
+
   rootElem.querySelector(".status").addEventListener("change", () => {
     const status = select.options[select.selectedIndex].value;
     updateTask(task, { status });

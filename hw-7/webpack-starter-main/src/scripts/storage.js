@@ -56,3 +56,10 @@ export function listTasks() {
   const data = readStorage();
   return data.tasks;
 }
+
+export function getGroupById(id) {
+  const data = readStorage();
+  return data.groups.find((group) => {
+    return group.id === id;
+  });
+}
