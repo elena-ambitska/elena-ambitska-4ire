@@ -21,6 +21,10 @@ export function renderAddTask() {
       data[el.getAttribute("name")] = el.value;
     });
     data["status"] = "new";
+    if (data.time) {
+      const time = new Date(data.time);
+      data.time = time.toLocaleString();
+    }
     addTask(data);
     createNotification("Task created successfully");
   });

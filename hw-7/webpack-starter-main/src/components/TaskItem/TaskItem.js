@@ -6,17 +6,17 @@ export function renderTaskItem(taskListEl, task) {
   div.innerHTML = TaskItemTemplate;
 
   const rootElem = div.querySelector("li");
-  rootElem.querySelector(".name").innerText = task.name;
-  console.log(rootElem);
+  rootElem.querySelector(".name").innerText = task.name + " " + task.time;
   taskListEl.insertAdjacentElement("beforeend", rootElem);
   const select = rootElem.querySelector(".status");
   select.value = task.status;
 
   const group = getGroupById(task.group);
-  console.log(group);
-  const groupNameElem = rootElem.querySelector(".group-name");
-  groupNameElem.innerText = group.name;
-  groupNameElem.style.color = group.color;
+  if (group) {
+    const groupNameElem = rootElem.querySelector(".group-name");
+    groupNameElem.innerText = group.name;
+    groupNameElem.style.color = group.color;
+  }
 
   rootElem.querySelector(".status").addEventListener("change", () => {
     const status = select.options[select.selectedIndex].value;
