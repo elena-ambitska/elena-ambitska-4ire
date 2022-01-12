@@ -1,5 +1,6 @@
 import AddTaskTemplate from "./AddTask.html";
 import { listGroups, addTask } from "../../scripts/storage";
+import { createNotification } from "../Notification/Notification";
 
 export function renderAddTask() {
   const main = document.createElement("div");
@@ -20,6 +21,7 @@ export function renderAddTask() {
       data[el.getAttribute("name")] = el.value;
     });
     addTask(data);
+    createNotification("Task created successfully");
   });
   return main;
 }

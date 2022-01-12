@@ -4,3 +4,8 @@ body {
   color: $body-color;
   font-family: sans-serif;
 }
+
+.toast-wrapper {
+  position: fixed;
+  top: 0;
+}
