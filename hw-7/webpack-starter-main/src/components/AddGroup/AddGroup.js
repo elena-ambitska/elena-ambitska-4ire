@@ -1,12 +1,12 @@
 import AddGroupTemplate from "./AddGroup.html";
 import { addGroup } from "../../scripts/storage";
 
-export function renderAddGroup(selector) {
-  document
-    .querySelector(selector)
-    .insertAdjacentHTML("beforeend", AddGroupTemplate);
+export function renderAddGroup() {
+  const main = document.createElement("div");
 
-  const rootElement = document.querySelector(".AddGroupComponent");
+  main.insertAdjacentHTML("beforeend", AddGroupTemplate);
+
+  const rootElement = main.querySelector(".AddGroupComponent");
   rootElement.querySelector("form").addEventListener("submit", (evt) => {
     evt.preventDefault();
     const data = {};
@@ -15,4 +15,5 @@ export function renderAddGroup(selector) {
     });
     addGroup(data);
   });
+  return main;
 }

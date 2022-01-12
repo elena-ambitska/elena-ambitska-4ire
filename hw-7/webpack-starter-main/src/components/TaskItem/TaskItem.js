@@ -11,7 +11,7 @@ export function renderTaskItem(taskListEl, task) {
   taskListEl.insertAdjacentElement("beforeend", rootElem);
   const select = rootElem.querySelector(".status");
   select.value = task.status;
-  rootElem.querySelector(".status").addEventListener("change", (evt) => {
+  rootElem.querySelector(".status").addEventListener("change", () => {
     const status = select.options[select.selectedIndex].value;
     updateTask(task, { status });
   });

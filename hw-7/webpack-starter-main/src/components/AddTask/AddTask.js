@@ -1,12 +1,11 @@
 import AddTaskTemplate from "./AddTask.html";
 import { listGroups, addTask } from "../../scripts/storage";
 
-export function renderAddTask(selector) {
-  document
-    .querySelector(selector)
-    .insertAdjacentHTML("beforeend", AddTaskTemplate);
+export function renderAddTask() {
+  const main = document.createElement("div");
+  main.insertAdjacentHTML("beforeend", AddTaskTemplate);
 
-  const rootElement = document.querySelector(".AddTaskComponent");
+  const rootElement = main.querySelector(".AddTaskComponent");
   const groupSelect = rootElement.querySelector("select");
   listGroups().forEach((group) => {
     const option = document.createElement("option");
@@ -22,4 +21,5 @@ export function renderAddTask(selector) {
     });
     addTask(data);
   });
+  return main;
 }

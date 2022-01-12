@@ -1,13 +1,11 @@
 import "../styles/index.scss";
-import { renderAddGroup } from "../components/AddGroup/AddGroup";
-import { renderAddTask } from "../components/AddTask/AddTask";
-import { renderTaskList } from "../components/TaskList/TaskList";
+import { initRout } from "../components/Router/Router";
+import { renderNav } from "../components/Nav/Nav";
 
 if (process.env.NODE_ENV === "development") {
   require("../index.html");
 }
 
-renderAddGroup("main");
-renderAddTask("main");
-renderTaskList("main");
+initRout();
+renderNav("header");
 console.log("webpack starterkit");
