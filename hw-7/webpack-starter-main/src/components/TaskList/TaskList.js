@@ -11,7 +11,7 @@ export function renderTaskList() {
   listTasks().forEach((task) => {
     renderTaskItem(taskListEl, task);
   });
-  main.insertAdjacentHTML("afterBegin", renderProgresBar());
+  main.insertAdjacentElement("afterBegin", renderProgresBar());
   progress(main);
   return main;
 }

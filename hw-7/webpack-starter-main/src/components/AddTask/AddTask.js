@@ -23,7 +23,7 @@ export function renderAddTask() {
     data["status"] = "new";
     if (data.time) {
       const time = new Date(data.time);
-      data.time = time.toLocaleString();
+      data.time = time.toISOString();
     }
     addTask(data);
     createNotification("Task created successfully");

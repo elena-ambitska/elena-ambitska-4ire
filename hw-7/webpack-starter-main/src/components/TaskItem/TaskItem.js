@@ -7,7 +7,11 @@ export function renderTaskItem(taskListEl, task) {
   div.innerHTML = TaskItemTemplate;
 
   const rootElem = div.querySelector("li");
-  rootElem.querySelector(".name").innerText = task.name + " " + task.time;
+  rootElem.querySelector(".name").innerText = task.name;
+  if (task.time) {
+    rootElem.querySelector(".name").innerText +=
+      " " + new Date(task.time).toLocaleString();
+  }
   taskListEl.insertAdjacentElement("beforeend", rootElem);
   const select = rootElem.querySelector(".status");
   select.value = task.status;

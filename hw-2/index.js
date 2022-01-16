@@ -23,4 +23,4 @@ function fibonacci (F0, F1, n) {
     }
     return F0;
 }
-alert (`Обобщенное число Фибоначчи: ${fibonacci (0,1, n)}`);
+alert (`Обобщенное число Фибоначчи: ${fibonacci (-10,2, n)}`);
