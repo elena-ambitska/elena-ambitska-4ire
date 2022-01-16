@@ -1,5 +1,6 @@
 import TaskItemTemplate from "./TaskItem.html";
 import { updateTask, getGroupById } from "../../scripts/storage";
+import { progress } from "../ProgressBar/ProgressBar";
 
 export function renderTaskItem(taskListEl, task) {
   const div = document.createElement("div");
@@ -21,5 +22,6 @@ export function renderTaskItem(taskListEl, task) {
   rootElem.querySelector(".status").addEventListener("change", () => {
     const status = select.options[select.selectedIndex].value;
     updateTask(task, { status });
+    progress();
   });
 }

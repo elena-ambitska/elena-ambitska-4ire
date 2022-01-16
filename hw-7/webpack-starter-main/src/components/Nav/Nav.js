@@ -2,7 +2,6 @@ import NuvTamplate from "./Nav.html";
 import { route } from "../Router/Router";
 
 export function renderNav(selector) {
-  console.log(selector);
   const header = document.querySelector(selector);
   header.insertAdjacentHTML("beforeend", NuvTamplate);
 
