@@ -23,6 +23,7 @@ export function readStorage() {
 export function saveStorage(data) {
   myStorage.setItem("toDo", JSON.stringify(data));
 }
+
 export function addGroup(groupData) {
   const data = readStorage();
   groupData["id"] = makeid(32);
@@ -35,6 +36,7 @@ export function addTask(taskData) {
   data.tasks.push(taskData);
   saveStorage(data);
 }
+
 export function updateTask(task, taskData) {
   const data = readStorage();
   const index = data.tasks.findIndex((el) => {
@@ -62,4 +64,17 @@ export function getGroupById(id) {
   return data.groups.find((group) => {
     return group.id === id;
   });
+}
+
+export function deleteTask(id) {
+  const data = readStorage();
+  const index = data.tasks.findIndex((el) => {
+    return el.id === id;
+  });
+
+  if (index === -1) {
+    return;
+  }
+  data.tasks.splice(index, 1);
+  saveStorage(data);
 }

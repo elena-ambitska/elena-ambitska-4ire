@@ -1,5 +1,5 @@
 import TaskItemTemplate from "./TaskItem.html";
-import { updateTask, getGroupById } from "../../scripts/storage";
+import { updateTask, getGroupById, deleteTask } from "../../scripts/storage";
 import { progress } from "../ProgressBar/ProgressBar";
 
 export function renderTaskItem(taskListEl, task) {
@@ -27,5 +27,13 @@ export function renderTaskItem(taskListEl, task) {
     const status = select.options[select.selectedIndex].value;
     updateTask(task, { status });
     progress();
+  });
+
+  const btnDelete = rootElem.querySelector(".btn-danger");
+  console.log(btnDelete);
+  btnDelete.addEventListener("click", (e) => {
+    e.preventDefault();
+    deleteTask(task.id);
+    rootElem.remove();
   });
 }
